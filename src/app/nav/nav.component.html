@@ -1,22 +1,22 @@
-<nav class="navbar navbar-expand-md navbar-dark">
+<nav class="navbar navbar-expand-md">
   <div class="container">
-    <a class="navbar-brand" href="#">{{title}}</a>
+    <a class="navbar-brand" [routerLink]="['/home']">{{title}}</a>
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
       <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="#">مسابقات</a>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/members']">مسابقات</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">فهرست</a>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/lists']">فهرست</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">پیام ها</a>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/messages']">پیام ها</a>
         </li>
       </ul>
 
       <div *ngIf="loggedIn()" dropdown class="dropdown">
-        <a class="dropdown-toggle text-light" dropdownToggle  (click)='false'>
+        <a class="dropdown-toggle" dropdownToggle  (click)='false'>
           خوش آمدید {{authService.decodedToken?.unique_name | titlecase}}
         </a>
 

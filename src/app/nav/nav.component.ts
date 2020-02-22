@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -11,7 +12,8 @@ export class NavComponent implements OnInit {
   title: any = 'آموزش انگولار8';
   model: any = {};
 
-  constructor(public authService: AuthService, private alertifyService: AlertifyService) { }
+  constructor(public authService: AuthService, private alertifyService: AlertifyService,
+              private router: Router) { }
 
   ngOnInit() {
   }
@@ -23,6 +25,8 @@ export class NavComponent implements OnInit {
     }, error => {
       console.log('عملیات ورود با شکست مواجه شد');
       this.alertifyService.error('عملیات ورود با شکست مواجه شد');
+    }, () => {
+      this.router.navigate(['/members']);
     });
   }
 
@@ -34,6 +38,7 @@ export class NavComponent implements OnInit {
     localStorage.removeItem('token');
     console.log('خارج شدید');
     this.alertifyService.message('خارج شدید');
+    this.router.navigate(['/home']);
   }
 
 }
