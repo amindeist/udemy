@@ -11,19 +11,19 @@ import {Router} from '@angular/router';
 export class NavComponent implements OnInit {
   title: any = 'آموزش انگولار8';
   model: any = {};
+  photoUrl: string;
 
   constructor(public authService: AuthService, private alertifyService: AlertifyService,
               private router: Router) { }
 
   ngOnInit() {
+    this.authService.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
   }
 
   login() {
     this.authService.login(this.model).subscribe(next => {
-      console.log('با موفقیت وارد شدید');
       this.alertifyService.success('با موفقیت وارد شدید');
     }, error => {
-      console.log('عملیات ورود با شکست مواجه شد');
       this.alertifyService.error('عملیات ورود با شکست مواجه شد');
     }, () => {
       this.router.navigate(['/members']);
@@ -36,6 +36,9 @@ export class NavComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.authService.decodedToken = null;
+    this.authService.currentUser = null;
     console.log('خارج شدید');
     this.alertifyService.message('خارج شدید');
     this.router.navigate(['/home']);

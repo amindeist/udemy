@@ -1,0 +1,83 @@
+<div class="row">
+  <div class="col-sm-2" *ngFor="let photo of photos">
+    <img class="img-thumbnail p-1" src="{{photo.url}}" alt="{{photo.description}}">
+    <div class="text-center">
+      <button type="button" class="btn btn-sm" (click)="setMainPhoto(photo)"
+      [disabled]="photo.isMain" [ngClass]="photo.isMain ? 'btn-success active' : 'btn-secondary' ">Main</button>
+      <button type="button" class="btn btn-sm btn-danger" (click)="deletePhoto(photo.id)"
+        [disabled]="photo.isMain">
+        <i class="fa fa-trash-o"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<div class="row mt-3">
+
+  <div class="col-md-3">
+
+    <h4>افزودن تصاویر</h4>
+
+    <div ng2FileDrop
+         [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+         (fileOver)="fileOverBase($event)"
+         [uploader]="uploader"
+         class="card bg-faded p-3 text-center mb-3 my-drop-zone">
+      <i class="fa fa-upload fa-3x"></i>
+      کشیدن و رها کردن تصاویر
+    </div>
+
+    انتخاب چندتایی
+    <input type="file" ng2FileSelect [uploader]="uploader" multiple  /><br/>
+
+    انتخاب تکی
+    <input type="file" ng2FileSelect [uploader]="uploader" />
+  </div>
+
+  <div class="col-md-9" style="margin-bottom: 40px" *ngIf="uploader?.queue?.length">
+
+    <h3>صف بارگزاری</h3>
+    <p>طول صف: {{ uploader?.queue?.length }}</p>
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th width="50%">نام تصویر</th>
+        <th>حجم</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of uploader.queue">
+        <td><strong>{{ item?.file?.name }}</strong></td>
+        <td *ngIf="uploader.options.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div>
+      <div>
+        پیشرفت صف:
+        <div class="progress mb-4">
+          <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+        </div>
+      </div>
+      <div class="btn-group d-flex">
+        <button type="button" class="btn btn-success btn-s"
+                (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+          <span class="fa fa-upload"></span> ارسال
+        </button>
+        <button type="button" class="btn btn-warning btn-s"
+                (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+          <span class="fa fa-ban"></span> لغو
+        </button>
+        <button type="button" class="btn btn-danger btn-s"
+                (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+          <span class="fa fa-trash"></span> حذف
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
