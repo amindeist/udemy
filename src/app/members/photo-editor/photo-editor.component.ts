@@ -54,6 +54,9 @@ export class PhotoEditorComponent implements OnInit {
           isMain: res.isMain
         };
         this.photos.push(photo);
+        this.authService.changeMemberPhoto(photo.url);
+        this.authService.currentUser.photoUrl = photo.url;
+        localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
       }
     };
 
@@ -68,7 +71,7 @@ export class PhotoEditorComponent implements OnInit {
       this.authService.currentUser.photoUrl = photo.url;
       localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
       this.alertify.success('تصویر نمایه شما تنظیم شد');
-    }, () => {
+    }, error => {
       this.alertify.error(error);
     });
   }
@@ -81,7 +84,7 @@ export class PhotoEditorComponent implements OnInit {
       this.userService.deletePhoto(this.authService.decodedToken.nameid, id).subscribe(() => {
         this.photos.splice(this.photos.findIndex(p => p.id === id), 1);
         this.alertify.success('تصویر شما با موفقیت حذف شد');
-      }, () => {
+      }, error => {
         this.alertify.error(error);
       });
     });
