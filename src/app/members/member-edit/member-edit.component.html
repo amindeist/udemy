@@ -23,12 +23,12 @@
             <p>{{user.age}}</p>
           </div>
           <div>
-            <strong>آخرین بازدید :</strong>
-            <p>{{user.lastActive}}</p>
+            <strong>آخرین فعالیت :</strong>
+            <p class="mt-1" dir="ltr">{{user.lastActive | timeAgo}}</p>
           </div>
           <div>
-            <strong>تاریخ ثبت نام :</strong>
-            <p>{{user.created}}</p>
+            <strong>تاریخ عضویت :</strong>
+            <p class="mt-1">{{user.created | date: 'fullDate'}}</p>
           </div>
         </div>
         <div class="card-footer">
