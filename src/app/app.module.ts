@@ -31,6 +31,9 @@ import {PreventUnsavedChanges} from './_guards/prevent-unsaved-changes.guard';
 import {PhotoEditorComponent} from './members/photo-editor/photo-editor.component';
 import {BsDatepickerModule, BsDropdownModule, TabsModule} from 'ngx-bootstrap';
 import {TimeAgoPipe} from 'time-ago-pipe';
+import {DpDatePickerModule} from 'ng2-jalali-date-picker';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
 
 export function tokenGetter() {
@@ -70,14 +73,17 @@ export class CustomHammerConfig extends HammerGestureConfig {
     BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
     NgxGalleryModule,
+    PaginationModule.forRoot(),
+    ButtonsModule.forRoot(),
     FileUploadModule,
+    DpDatePickerModule,
     JwtModule.forRoot({
       config: {
         tokenGetter,
         whitelistedDomains: ['localhost:44326'],
         blacklistedRoutes: ['localhost:44326/api/auth']
       }
-    })
+    }),
   ],
   providers: [
     AuthService,

@@ -4,8 +4,8 @@ import {AlertifyService} from '../_services/alertify.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import {User} from '../_models/user';
-import {error} from 'util';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
+import {ECalendarValue, IDatePickerConfig, IDatePickerDirectiveConfig} from 'ng2-jalali-date-picker';
 
 
 @Component({
@@ -69,6 +69,9 @@ export class RegisterComponent implements OnInit {
         });
       });
     }
+
+
+    console.log(this.registerForm.value);
 
     // this.authService.register(this.model).subscribe(() => {
     //   this.alertifyService.success('ثبت نام شما با موفقیت انجام شد');
