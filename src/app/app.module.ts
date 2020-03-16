@@ -34,6 +34,7 @@ import {TimeAgoPipe} from 'time-ago-pipe';
 import {DpDatePickerModule} from 'ng2-jalali-date-picker';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { ListsResolver } from './_resolvers/lists.resolver';
 
 
 export function tokenGetter() {
@@ -96,6 +97,7 @@ export class CustomHammerConfig extends HammerGestureConfig {
     MemberEditResolver,
     {provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig},
     PreventUnsavedChanges,
+    ListsResolver,
   ],
   bootstrap: [
     AppComponent
